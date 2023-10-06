@@ -79,9 +79,7 @@ pipeline {
             }
         }
         stage('Build and Push Docker Image - React') {
-            agent {
-        label 'sangram-slave'
-    }
+            agent any
             environment {
                 AWS_REGION = 'ap-south-1'
                 ECR_REPOSITORY_NAME = '433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject'
