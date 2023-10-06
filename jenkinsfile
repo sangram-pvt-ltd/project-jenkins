@@ -28,6 +28,26 @@ pipeline {
           sh "docker push $ecrImageURI"
         }
       }
+       stage('Build and Push Docker Image for react app') {
+      agent any
+      environment {        
+        DOCKER_IMAGE_NAME_REACTAPP = "reactproject"
+        DOCKERFILE_PATH_REACT = "reactapp/" // e.g., "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        MY_Image_react = 'react'
+      }
+      steps {
+        script {
+          // Build the Docker image
+          sh "docker build -t $DOCKER_IMAGE_NAME_REACTAPP $DOCKERFILE_PATH_REACT"
+          // Log in to AWS ECR
+          sh "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_NAME"
+          // Tag the Docker image with the ECR repository URI
+          def ecrImageURI = "$ECR_REPOSITORY_NAME:${MY_Image_react}-${BUILD_NUMBER}"
+          sh "docker tag $DOCKER_IMAGE_NAME_REACTAPP  $ecrImageURI"
+          // Push the image to ECR
+          sh "docker push $ecrImageURI"
+        }
+      }
     }
     }
 }
