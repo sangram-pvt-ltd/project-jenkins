@@ -29,7 +29,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          sh 'cd java-tomcat/
+          sh 'cd java-tomcat'
           dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
         }
       }
