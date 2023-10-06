@@ -6,7 +6,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build and Push Docker Image') {
+        stage('Build and Push Docker Image - Tomcat') {
             agent any
             environment {
                 AWS_REGION = 'ap-south-1'
@@ -29,7 +29,7 @@ pipeline {
                 }
             }
         }
-        stage('Build and Push Docker Image') {
+        stage('Build and Push Docker Image - React') {
             agent any
             environment {
                 AWS_REGION = 'ap-south-1'
