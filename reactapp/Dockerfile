@@ -1,4 +1,4 @@
-FROM node:17-alpine as builder
+FROM node:18-alpine as builder
 # Set the working directory
 WORKDIR /app
 # Copy package.json and yarn.lock (if needed)
