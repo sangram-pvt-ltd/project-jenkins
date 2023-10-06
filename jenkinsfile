@@ -26,6 +26,7 @@ pipeline {
                     sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
                     // Push the image to ECR
                     sh "docker push $ecrImageURI"
+                    sh "docker system prune -a"
                 }
             }
         }
@@ -49,6 +50,7 @@ pipeline {
                     sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
                     // Push the image to ECR
                     sh "docker push $ecrImageURI"
+                    sh "docker system prune -a"
                 }
             }
         }
@@ -72,6 +74,7 @@ pipeline {
                     sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
                     // Push the image to ECR
                     sh "docker push $ecrImageURI"
+                    sh "docker system prune -a"
                 }
             }
         }
@@ -95,6 +98,7 @@ pipeline {
                     sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
                     // Push the image to ECR
                     sh "docker push $ecrImageURI"
+                    sh "docker system prune -a"
                 }
             }
         }
