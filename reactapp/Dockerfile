@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:17-alpine as builder
 # Set the working directory
 WORKDIR /app
 # Copy package.json and yarn.lock (if needed)
@@ -11,7 +11,7 @@ COPY . .
 # Build the application
 RUN npm run build
 # Stage 2
-FROM nginx
+FROM nginx:14.0.0
 # Set the working directory in the second stage
 WORKDIR /usr/share/nginx/html
 # Remove default Nginx contents
