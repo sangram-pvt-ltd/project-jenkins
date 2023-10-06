@@ -21,8 +21,8 @@ pipeline {
           // Log in to AWS ECR
           sh "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_NAME"
           // Tag the Docker image with the ECR repository URI
-          def ecrImageURI = "$ECR_REPOSITORY_NAME:${BUILD_NUMBER}"
-          sh "docker tag $DOCKER_IMAGE_NAME tomcat-$ecrImageURI"
+          def ecrImageURI = "$ECR_REPOSITORY_NAME:${tomcat-BUILD_NUMBER}"
+          sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
           // Push the image to ECR
           sh "docker push $ecrImageURI"
         }
