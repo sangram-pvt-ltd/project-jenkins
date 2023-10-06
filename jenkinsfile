@@ -12,7 +12,7 @@ pipeline {
         AWS_REGION = 'ap-south-1'
         ECR_REPOSITORY_NAME = '433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject'
         DOCKER_IMAGE_NAME = "jenkinsproject"
-        DOCKERFILE_PATH = "/project-jenkins/java-tomcat" // e.g., "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        DOCKERFILE_PATH = "/java-tomcat" // e.g., "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
       }
       steps {
         script {
