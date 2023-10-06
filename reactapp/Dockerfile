@@ -11,7 +11,7 @@ COPY . .
 # Build the application
 RUN npm run build
 # Stage 2
-FROM nginx:1.19.0
+FROM nginx
 # Set the working directory in the second stage
 WORKDIR /usr/share/nginx/html
 # Remove default Nginx contents
