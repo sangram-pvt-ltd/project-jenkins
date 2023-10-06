@@ -24,7 +24,7 @@ pipeline {
           def ecrImageURI = "$ECR_REPOSITORY_NAME:${BUILD_NUMBER}"
           sh "docker tag $DOCKER_IMAGE_NAME tomcat-$ecrImageURI"
           // Push the image to ECR
-          sh "docker push tomcat-$ecrImageURI"
+          sh "docker push $ecrImageURI"
         }
       }
     }
