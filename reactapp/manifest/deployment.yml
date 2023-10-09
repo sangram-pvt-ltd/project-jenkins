@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reactapp-deployment
+  name: spring-boot-app
+  namespace: test
   labels:
-    app: dev
+    app: spring-boot-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: dev
+      app: spring-boot-app
   template:
     metadata:
       labels:
-        app: dev
+        app: spring-boot-app
     spec:
       containers:
-      - name: reactapp
-        image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-91
+      - name: spring-boot-app
+        image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-80
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
