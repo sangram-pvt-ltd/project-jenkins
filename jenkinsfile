@@ -78,51 +78,56 @@ pipeline {
                 }
             }
         }
-        stage('Build and Push Docker Image - React') {
-            agent any
-            environment {
-                AWS_REGION = 'ap-south-1'
-                ECR_REPOSITORY_NAME = '433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject'
-                DOCKER_IMAGE_NAME = "jenkinsproject"
-                DOCKERFILE_PATH = "reactapp/" // e.g., "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
-                MY_Image = 'react'
-            }
-            steps {
-                script {
-                    // Build the Docker image
-                    sh "docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH"
-                    // Log in to AWS ECR
-                    sh "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_NAME"
-                    // Tag the Docker image with the ECR repository URI
-                    def ecrImageURI = "$ECR_REPOSITORY_NAME:${MY_Image}-${BUILD_NUMBER}"
-                    sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
-                    // Push the image to ECR
-                    sh "docker push $ecrImageURI"
-                    sh 'docker rmi -f $(docker images -q) '
-                }
-            }
+        stage('Build and Push Docker Image - react') {
+      agent any
+      environment {
+        AWS_REGION = 'ap-south-1'
+        ECR_REPOSITORY_NAME = '433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject'
+        DOCKER_IMAGE_NAME = "jenkinsproject"
+        DOCKERFILE_PATH = "reactapp/" // e.g., "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        MY_Image = 'react'
+      }
+      steps {
+        script {
+          // Build the Docker image
+          sh "docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH"
+
+          // Log in to AWS ECR
+          sh "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_NAME"
+
+          // Tag the Docker image with the ECR repository URI
+          def ecrImageURI = "$ECR_REPOSITORY_NAME:${MY_Image}-${BUILD_NUMBER}"
+          sh "docker tag $DOCKER_IMAGE_NAME $ecrImageURI"
+
+          // Push the image to ECR
+          sh "docker push $ecrImageURI"
         }
-        stage('Update Deployment File') {
-        agent any    
-        environment {
-            GIT_REPO_NAME = "argocddeploymentrepo"
-            GIT_USER_NAME = "Vinesh02"
+      }
+    }
+    stage('Update Deployment File') {
+      agent any
+      environment {
+        GIT_REPO_NAME = "argocddeploymentrepo"
+        GIT_USER_NAME = "Vinesh02"
+      }
+      steps {
+        withCredentials([string(credentialsId: 'githubtokenid', variable: 'GITHUB_TOKEN')]) {
+          sh '''
+            git config user.email "vineshchaturvedi20@gmail.com"
+            git config user.name "Vinesh Chaturvedi"
+            BUILD_NUMBER=${BUILD_NUMBER}
+            sed -i "s|433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" react/deployment.yml
+            cat react/deployment.yml
+            git branch
+            git add react/deployment.yml
+            git status
+            git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+            git status
+            git branch
+            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+          '''
         }
-        steps {
-            withCredentials([string(credentialsId: 'githubtokenid', variable: 'GITHUB_TOKEN')])
-{
-                sh '''
-                    git config user.email "vineshchaturvedi20@gmail.com"
-                    git config user.name "Vinesh Chaturvedi"
-                    git clone https://github.com/Vinesh02/argocddeploymentrepo.git
-                    BUILD_NUMBER=${BUILD_NUMBER}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yaml
-                    git add deployment.yaml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-                '''
-            }
-        }
+      }
     }
     }
 }
