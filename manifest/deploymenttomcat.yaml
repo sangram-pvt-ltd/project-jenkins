@@ -4,16 +4,16 @@ metadata:
   name: tomcat-app
   namespace: test
   labels:
-    app: tomcat-app-1
+    app: tomcat-app-2
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat-app-1
+      app: tomcat-app-2
   template:
     metadata:
       labels:
-        app: tomcat-app-1
+        app: tomcat-app-2
     spec:
       containers:
       - name: tomcat-app
