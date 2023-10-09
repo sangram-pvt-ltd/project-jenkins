@@ -107,8 +107,8 @@ pipeline {
     stage('Update Deployment File') {
       agent any
       environment {
-        GIT_REPO_NAME = "argocddeploymentrepo"
-        GIT_USER_NAME = "Vinesh02"
+        GIT_REPO_NAME = "project-jenkins"
+        GIT_USER_NAME = "sangram-pvt-ltd"
       }
       steps {
         withCredentials([string(credentialsId: 'githubtokenid', variable: 'GITHUB_TOKEN')]) {
