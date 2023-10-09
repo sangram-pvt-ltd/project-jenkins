@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-app
+  name: tomcat-app-1
   namespace: test
   labels:
     app: tomcat-app
