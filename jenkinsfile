@@ -103,9 +103,7 @@ pipeline {
             }
         }
         stage('Update Deployment File') {
-            agent {
-                label 'slave1'  // Run this stage on agents with the specified label
-            }
+        agent any    
         environment {
             GIT_REPO_NAME = "argocddeploymentrepo"
             GIT_USER_NAME = "Vinesh02"
