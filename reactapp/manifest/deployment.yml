@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: reactapp
-        image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-80
+        image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-90
         ports:
         - containerPort: 3000
