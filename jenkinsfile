@@ -118,7 +118,7 @@ pipeline {
             BUILD_NUMBER=${BUILD_NUMBER}
             sed -i "s|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" manifest/deploymentreact.yaml
             sed -i "s|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" manifest/deplomentfoo.yaml
-            sed -i "s|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" manifest/deploymentbar.yaml
+            sed -i "s|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" manifest/deplomentfoo.yaml
             sed -i "s|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-[0-9]*|image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-${BUILD_NUMBER}|g" manifest/deploymenttomcat.yaml
             cat manifest/deploymentreact.yaml
             cat manifest/deplomentfoo.yaml
