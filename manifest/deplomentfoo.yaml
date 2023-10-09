@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: foo-app
-          image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:reactfoo-83
+          image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:react-98
           env:
             - name: APP_NAME
               value: foo
