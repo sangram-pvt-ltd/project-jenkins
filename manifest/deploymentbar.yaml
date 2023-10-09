@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bar-app
-          image: robinnagpal/argo-learning-bar-app:0a63698
+          image: 433796583082.dkr.ecr.ap-south-1.amazonaws.com/jenkinsproject:reactbar-77
           env:
             - name: APP_NAME
               value: bar
